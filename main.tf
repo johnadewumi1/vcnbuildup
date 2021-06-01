@@ -81,9 +81,9 @@ resource "oci_core_security_list" "johnsecuritylist" {
 }
 
 resource "oci_core_instance" "bastion" {
-    availability_domain = "var.availability_domain"
-    compartment_id      = "var.compartment_ocid"
-    display_name        = "var.display_name"
+    availability_domain = var.availability_domain
+    compartment_id      = var.compartment_ocid
+    display_name        = var.display_name
     shape               = var.shape[0]
 
     source_details {
@@ -95,7 +95,7 @@ resource "oci_core_instance" "bastion" {
         subnet_id = oci_core_subnet.publicsubnet.id
   }
 
-    metadata {
+    metadata ={
         ssh_authorized_keys = file(var.public_key_oci)
   }
 

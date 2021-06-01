@@ -87,7 +87,7 @@ resource "oci_core_instance" "bastion" {
     shape               = var.shape[0]
 
     source_details {
-        source_id   = var.image[0]
+        source_id   = var.Images[0]
         source_type = "image"
   }
 
@@ -131,10 +131,10 @@ variable "shape" {
     default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2" ]
 }
 
-variable "images" {
+variable "Images" {
     default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaasuer4imvqelnx65zx4m26wfof5chorsj5gxegwatjbdgtsdfcygq"]
 }
 
 output "webPublicIp" { 
-    value = oci_core_instance.web.public_ip
+    value = oci_core_instance.bastion.public_ip
 }

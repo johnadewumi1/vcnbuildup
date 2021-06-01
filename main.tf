@@ -134,7 +134,7 @@ variable "availability_domain" {
 }
 
 variable "shape" {
-  default = ["VM.Standard.E4.Flex","VM.Standard2.1", "VM.Standard2.2", "VM.Standard2.4"]
+  default = ["VM.Standard2.1", "VM.Standard2.2", "VM.Standard2.4"]
 }
 
 variable "Images" {

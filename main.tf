@@ -15,9 +15,95 @@ provider "oci" {
 }
 
 
-resource "oci_core_vcn" "internal" {
+resource "oci_core_vcn" "johnvcn" {
   dns_label      = "internal"
-  cidr_block     = "172.16.0.0/20"
+  cidr_block     = var.VCN-CIDR
   compartment_id = "ocid1.compartment.oc1..aaaaaaaapqytcu462c27feapv4bvf2ijszoqm7qmqjn4mx3koz3o5tjt5ska"
-  display_name   = "My internal VCN"
+  display_name   = "johnvcn"
 }
+resource "oci_core_internet_gateway" "john_internet_gateways" {
+    #Required
+    compartment_id = var.compartment_id
+
+    #Optional
+    display_name = "john_internet_gateways"
+    vcn_id = oci_core_vcn.johnvcn.id
+}
+
+resource "oci_core_route_table" "john_route_table" {
+    #Required
+    compartment_id = var.compartment_id
+    vcn_id = oci_core_vcn.johnvcn.id
+
+    display_name = "john_route_table"
+    route_rules {
+        network_entity_id = oci_core_internet_gateway.john_internet_gateways.id
+        destination = "0.0.0.0/0"
+        destination_type = "CIDR_BLOCK"
+    }
+}
+resource "oci_core_subnet" "publicsubnet" {
+  cidr_block = "172.16.0.0/24"
+  display_name = "publicsubnet"
+  compartment_id = var.compartment_id
+  vcn_id = oci_core_vcn.johnvcn.id
+  dns_label = "johnnydns"
+  route_table_id = oci_core_route_table.john_route_table.id
+#   dhcp_options_id = oci_core_dhcp_options.johnDhcpOptions.id
+  security_list_ids = [oci_core_security_list.johnsecuritylist.id]
+}
+
+resource "oci_core_security_list" "johnsecuritylist" {
+    compartment_id = var.compartment_id
+    vcn_id = oci_core_vcn.johnvcn.id
+    display_name = "johnsecuritylist"
+
+    egress_security_rules {
+        destination = "0.0.0.0/0"
+        protocol = "6"
+    }
+
+    dynamic "ingress_security_rules" {
+        for_each = var.service_ports
+        content {
+            protocol = "6"
+            source = "0.0.0.0/0"
+            tcp_options {
+                max = ingress_security_rules.value
+                min = ingress_security_rules.value
+            }
+        }
+    }
+    ingress_security_rules {
+        protocol = "6"
+        source = var.VCN-CIDR
+    }
+}
+
+
+# variable "private_key_oci" {
+#   default = "/home/opc/credentials/id_rsa"
+# }
+# variable "public_key_oci" {
+#   default = "/home/opc/credentials/id_rsa.pub"
+# }
+
+variable "VCN-CIDR" {
+  default = "10.0.0.0/16"
+}
+
+variable "service_ports" {
+  default = [80,22,443]
+}
+
+# variable "ADs" {
+#   default = ""
+# }
+
+# variable "Shapes" {
+#   default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2" ]
+# }
+
+# variable "Images" {
+#   default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaasuer4imvqelnx65zx4m26wfof5chorsj5gxegwatjbdgtsdfcygq"]
+# }

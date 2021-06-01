@@ -130,7 +130,7 @@ variable "compartment_ocid" {
 }
 
 variable "availability_domain" {
-  default = "US-SANJOSE-1-AD-1"
+  default = ""
 }
 
 variable "shape" {

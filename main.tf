@@ -138,7 +138,7 @@ variable "shape" {
 }
 
 variable "Images" {
-  default = ["ocid1.instance.oc1.us-sanjose-1.anzwuljrnlc5nbycqn4xi52z4lxxzhrodplw6ghgjkdu3kflf6ojbssor2iq"]
+  default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaajgvouvgklfcvo26za2wpzbtuj73gykprykxnb2mokvaellju3rtq"]
 }
 
 output "webPublicIp" {

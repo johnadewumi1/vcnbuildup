@@ -30,7 +30,7 @@ resource "oci_core_internet_gateway" "john_internet_gateways" {
   vcn_id       = oci_core_vcn.johnvcn.id
 }
 data "oci_identity_availability_domains" "ad" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.compartment_ocid
 }
 data "template_file" "ad_names" {
   count    = length(data.oci_identity_availability_domains.ad.availability_domains)

@@ -18,12 +18,12 @@ provider "oci" {
 resource "oci_core_vcn" "johnvcn" {
   dns_label      = "internal"
   cidr_block     = var.VCN-CIDR
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   display_name   = "johnvcn"
 }
 resource "oci_core_internet_gateway" "john_internet_gateways" {
     #Required
-    compartment_id = var.compartment_id
+    compartment_id = var.compartment_ocid
 
     #Optional
     display_name = "john_internet_gateways"
@@ -32,7 +32,7 @@ resource "oci_core_internet_gateway" "john_internet_gateways" {
 
 resource "oci_core_route_table" "john_route_table" {
     #Required
-    compartment_id = var.compartment_id
+    compartment_id = var.compartment_ocid
     vcn_id = oci_core_vcn.johnvcn.id
 
     display_name = "john_route_table"
@@ -45,7 +45,7 @@ resource "oci_core_route_table" "john_route_table" {
 resource "oci_core_subnet" "publicsubnet" {
   cidr_block = "10.0.0.0/24"
   display_name = "publicsubnet"
-  compartment_id = var.compartment_id
+  compartment_id = var.compartment_ocid
   vcn_id = oci_core_vcn.johnvcn.id
   dns_label = "johnnydns"
   route_table_id = oci_core_route_table.john_route_table.id
@@ -54,7 +54,7 @@ resource "oci_core_subnet" "publicsubnet" {
 }
 
 resource "oci_core_security_list" "johnsecuritylist" {
-    compartment_id = var.compartment_id
+    compartment_id = var.compartment_ocid
     vcn_id = oci_core_vcn.johnvcn.id
     display_name = "johnsecuritylist"
 

@@ -7,12 +7,12 @@ terraform {
 }
 
 provider "oci" {
-  region              = "us-sanjose-1"
-  tenancy_ocid        = "ocid1.tenancy.oc1..aaaaaaaajznex5attydtrmrgudwayqu7kn4krasw2ct4h4pwz7nwbfxoyd4q"
-  user_ocid           = "ocid1.user.oc1..aaaaaaaamrhp2f3m2evpmlme32kqavvgynxaz66oxfvrdephahsf72mwk6cq"
-  fingerprint         = "39:00:25:bf:cf:9b:00:70:87:f5:75:74:7b:71:b1:40"
-  private_key_path    = "/home/opc/.oci/oci_api_key.pem"
-}
+    region              = "us-sanjose-1"
+    tenancy_ocid        = "ocid1.tenancy.oc1..aaaaaaaajznex5attydtrmrgudwayqu7kn4krasw2ct4h4pwz7nwbfxoyd4q"
+    user_ocid           = "ocid1.user.oc1..aaaaaaaamrhp2f3m2evpmlme32kqavvgynxaz66oxfvrdephahsf72mwk6cq"
+    fingerprint         = "39:00:25:bf:cf:9b:00:70:87:f5:75:74:7b:71:b1:40"
+    private_key_path    = "/home/opc/.oci/oci_api_key.pem"
+    }
 
 
 resource "oci_core_vcn" "johnvcn" {
@@ -80,36 +80,61 @@ resource "oci_core_security_list" "johnsecuritylist" {
     }
 }
 
+resource "oci_core_instance" "bastion" {
+    availability_domain = "var.availability_domain"
+    compartment_id      = "var.compartment_ocid"
+    display_name        = "var.display_name"
+    shape               = var.shape[0]
 
-# variable "private_key_oci" {
-#   default = "/home/opc/credentials/id_rsa"
-# }
-# variable "public_key_oci" {
-#   default = "/home/opc/credentials/id_rsa.pub"
-# }
+    source_details {
+        source_id   = var.image[0]
+        source_type = "image"
+  }
+
+    create_vnic_details {
+        subnet_id = oci_core_subnet.publicsubnet.id
+  }
+
+    metadata {
+        ssh_authorized_keys = file(var.public_key_oci)
+  }
+
+    timeouts {
+        create = "10m"
+  }
+}
+
+variable "private_key_oci" {
+    default = "/home/opc/credentials/id_rsa"
+}
+variable "public_key_oci" {
+    default = "/home/opc/credentials/id_rsa.pub"
+}
 
 variable "VCN-CIDR" {
-  default = "10.0.0.0/16"
+    default = "10.0.0.0/16"
 }
 
 variable "service_ports" {
-  default = [80,22,443]
+    default = [80,22,443]
 }
 
 variable "compartment_id" {
     default = "ocid1.compartment.oc1..aaaaaaaapqytcu462c27feapv4bvf2ijszoqm7qmqjn4mx3koz3o5tjt5ska"
-  
 }
 
+variable "availability_domain" {
+    default = ""
+}
 
-# variable "ADs" {
-#   default = ""
-# }
+variable "shape" {
+    default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2" ]
+}
 
-# variable "Shapes" {
-#   default = ["VM.Standard.E2.1","VM.Standard.E2.1.Micro","VM.Standard2.1","VM.Standard.E2.1","VM.Standard.E2.2" ]
-# }
+variable "images" {
+    default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaasuer4imvqelnx65zx4m26wfof5chorsj5gxegwatjbdgtsdfcygq"]
+}
 
-# variable "Images" {
-#   default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaasuer4imvqelnx65zx4m26wfof5chorsj5gxegwatjbdgtsdfcygq"]
-# }
+output "webPublicIp" { 
+    value = oci_core_instance.web.public_ip
+}

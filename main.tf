@@ -90,10 +90,10 @@ resource "oci_core_security_list" "johnsecuritylist" {
 resource "oci_core_instance" "bastion" {
   availability_domain = data.template_file.ad_names.*.rendered[0]
   compartment_id      = var.compartment_ocid
-  shape               = var.shape[0]
+  shape               = var.shape
 
   source_details {
-    source_id   = var.Images[0]
+    source_id   = var.Images
     source_type = "image"
   }
 
@@ -134,11 +134,11 @@ variable "availability_domain" {
 }
 
 variable "shape" {
-  default = ["VM.Standard2.1", "VM.Standard2.2", "VM.Standard2.4"]
+  default = "VM.Standard.E4.Flex"
 }
 
 variable "Images" {
-  default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaajgvouvgklfcvo26za2wpzbtuj73gykprykxnb2mokvaellju3rtq"]
+  default = "ocid1.instance.oc1.us-sanjose-1.anzwuljrnlc5nbycqn4xi52z4lxxzhrodplw6ghgjkdu3kflf6ojbssor2iq"
 }
 
 output "webPublicIp" {

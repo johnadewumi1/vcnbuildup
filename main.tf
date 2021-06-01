@@ -83,7 +83,6 @@ resource "oci_core_security_list" "johnsecuritylist" {
 resource "oci_core_instance" "bastion" {
     availability_domain = var.availability_domain
     compartment_id      = var.compartment_ocid
-    display_name        = var.display_name
     shape               = var.shape[0]
 
     source_details {
@@ -119,7 +118,7 @@ variable "service_ports" {
     default = [80,22,443]
 }
 
-variable "compartment_id" {
+variable "compartment_ocid" {
     default = "ocid1.compartment.oc1..aaaaaaaapqytcu462c27feapv4bvf2ijszoqm7qmqjn4mx3koz3o5tjt5ska"
 }
 

@@ -134,11 +134,11 @@ variable "availability_domain" {
 }
 
 variable "shape" {
-  default = ["VM.Standard.E2.1", "VM.Standard.E2.1.Micro", "VM.Standard2.1", "VM.Standard.E2.1", "VM.Standard.E2.2"]
+  default = ["VM.Standard.E4.Flex","VM.Standard2.1", "VM.Standard2.2", "VM.Standard2.4"]
 }
 
 variable "Images" {
-  default = ["ocid1.image.oc1.us-sanjose-1.aaaaaaaasuer4imvqelnx65zx4m26wfof5chorsj5gxegwatjbdgtsdfcygq"]
+  default = ["ocid1.instance.oc1.us-sanjose-1.anzwuljrnlc5nbycqn4xi52z4lxxzhrodplw6ghgjkdu3kflf6ojbssor2iq"]
 }
 
 output "webPublicIp" {

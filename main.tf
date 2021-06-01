@@ -43,7 +43,7 @@ resource "oci_core_route_table" "john_route_table" {
     }
 }
 resource "oci_core_subnet" "publicsubnet" {
-  cidr_block = "172.16.0.0/24"
+  cidr_block = "10.0.0.0/24"
   display_name = "publicsubnet"
   compartment_id = var.compartment_id
   vcn_id = oci_core_vcn.johnvcn.id

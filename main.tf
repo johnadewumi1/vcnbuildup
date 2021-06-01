@@ -18,7 +18,7 @@ provider "oci" {
 resource "oci_core_vcn" "johnvcn" {
   dns_label      = "internal"
   cidr_block     = var.VCN-CIDR
-  compartment_id = "ocid1.compartment.oc1..aaaaaaaapqytcu462c27feapv4bvf2ijszoqm7qmqjn4mx3koz3o5tjt5ska"
+  compartment_id = var.compartment_id
   display_name   = "johnvcn"
 }
 resource "oci_core_internet_gateway" "john_internet_gateways" {
@@ -95,6 +95,12 @@ variable "VCN-CIDR" {
 variable "service_ports" {
   default = [80,22,443]
 }
+
+variable "compartment_id" {
+    default = "ocid1.compartment.oc1..aaaaaaaapqytcu462c27feapv4bvf2ijszoqm7qmqjn4mx3koz3o5tjt5ska"
+  
+}
+
 
 # variable "ADs" {
 #   default = ""

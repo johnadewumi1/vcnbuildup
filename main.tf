@@ -130,7 +130,7 @@ variable "compartment_ocid" {
 }
 
 variable "availability_domain" {
-  default = ""
+  default = "GrCh:US-SANJOSE-1-AD-1"
 }
 
 variable "shape" {
@@ -138,7 +138,7 @@ variable "shape" {
 }
 
 variable "Images" {
-  default = "ocid1.instance.oc1.us-sanjose-1.anzwuljrnlc5nbycxvpi4c53ei7ljmp3hu3iay35jh3j737xdic5owlurpmq"
+  default = "ocid1.image.oc1.us-sanjose-1.aaaaaaaae56w5ardp5desrt2yqozgy2dxtajdjaareji22xzo5pt2dwozxgq"
 }
 
 output "webPublicIp" {

@@ -254,7 +254,7 @@ data "oci_core_vnic_attachments" "dataSWebserver1_VNIC1_attach"{
 }
 
 variable "region" {
-  default = "us-sanjose-1"
+  default = "us-ashburn-1"
 }
 variable "tenancy_ocid" {
   default = "ocid1.tenancy.oc1..aaaaaaaajznex5attydtrmrgudwayqu7kn4krasw2ct4h4pwz7nwbfxoyd4q"
@@ -280,7 +280,7 @@ variable "Subnet-CIDR" {
   default = "10.0.1.0/24"
 }
 variable "ADs" {
-  default = "GrCh:US-SANJOSE-1-AD-1"
+  default = "GrCh:US-ASHBURN-1-AD-1"
 }
 
 variable "Shape" {

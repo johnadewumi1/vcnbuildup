@@ -253,31 +253,31 @@ data "oci_core_vnic_attachments" "dataSWebserver1_VNIC1_attach"{
   instance_id = oci_core_instance.dataSWebserver1.id
 }
 
-resource "oci_core_instance" "dataSWebserver2" {
-  availability_domain = var.ADs
-  compartment_id = var.compartment
-  display_name = "dataSWebServer2"
-  shape = var.Shape
-  source_details {
-     source_type = "image"
-     source_id   = var.image
-   }
+# resource "oci_core_instance" "dataSWebserver2" {
+#   availability_domain = var.ADs
+#   compartment_id = var.compartment
+#   display_name = "dataSWebServer2"
+#   shape = var.Shape
+#   source_details {
+#      source_type = "image"
+#      source_id   = var.image
+#    }
 
-  create_vnic_details {
-     subnet_id = oci_core_subnet.dataSWebSubnet.id
-     assign_public_ip = true
-  }
+#   create_vnic_details {
+#      subnet_id = oci_core_subnet.dataSWebSubnet.id
+#      assign_public_ip = true
+#   }
 
-  metadata = {
-    ssh_authorized_keys = file(var.ssh_authorized_keys)
-  }
-}
+#   metadata = {
+#     ssh_authorized_keys = file(var.ssh_authorized_keys)
+#   }
+# }
 
-data "oci_core_vnic_attachments" "dataSWebserver2_VNIC1_attach"{
-  availability_domain = var.ADs
-  compartment_id = var.compartment
-  instance_id = oci_core_instance.dataSWebserver2.id
-}
+# data "oci_core_vnic_attachments" "dataSWebserver2_VNIC1_attach"{
+#   availability_domain = var.ADs
+#   compartment_id = var.compartment
+#   instance_id = oci_core_instance.dataSWebserver2.id
+# }
 
 variable "region" {
   default = "us-ashburn-1"
@@ -313,7 +313,7 @@ variable "Shape" {
  default = "VM.Standard2.1"
 }
 variable "image" {
- default = "ocid1.image.oc1.iad.aaaaaaaaijzevirp67bdceiebqeg4epuqstqcogohn3gskw76ngxupke3zfa"
+ default = "ocid1.image.oc1.us-sanjose-1.aaaaaaaae56w5ardp5desrt2yqozgy2dxtajdjaareji22xzo5pt2dwozxgq"
 }
 
 variable "FlexShapeOCPUS" {

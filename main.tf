@@ -259,7 +259,7 @@ variable "region" {
 variable "tenancy_ocid" {
   default = "ocid1.tenancy.oc1..aaaaaaaajznex5attydtrmrgudwayqu7kn4krasw2ct4h4pwz7nwbfxoyd4q"
 }
-variable "user_oci" {
+variable "user_ocid" {
   default = "ocid1.user.oc1..aaaaaaaamrhp2f3m2evpmlme32kqavvgynxaz66oxfvrdephahsf72mwk6cq"
 }
 variable "fingerprint" {
@@ -315,7 +315,7 @@ variable "ssh_authorized_keys" {
   default = "/home/opc/credentials/id_rsa.pub"
 }
 
-# Dictionary Locals
+# Dictionary Locals=
 locals {
   compute_flexible_shapes = [
     "VM.Standard.E3.Flex",

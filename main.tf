@@ -243,7 +243,7 @@ resource "oci_core_instance" "dataSWebserver1" {
   }
 
   metadata = {
-    ssh_authorized_keys = "${file("${var.ssh_authorized_keys}")}"
+    ssh_authorized_keys = file(var.ssh_authorized_keys)
   }
 }
 
@@ -263,7 +263,7 @@ variable "user_ocid" {
   default = "ocid1.user.oc1..aaaaaaaamrhp2f3m2evpmlme32kqavvgynxaz66oxfvrdephahsf72mwk6cq"
 }
 variable "fingerprint" {
-  default = "39:00:25:bf:cf:9b:00:70:87:f5:75:74:7b:71:b1:40"
+  default = "80:3d:6d:28:1a:f7:82:94:0d:30:04:3f:e1:b9:3c:10"
 }
 variable "private_key_path" {
   default = "/home/opc/.oci/oci_api_key.pem"
@@ -280,7 +280,7 @@ variable "Subnet-CIDR" {
   default = "10.0.1.0/24"
 }
 variable "ADs" {
-  default = "GrCh:US-ASHBURN-1-AD-1"
+  default = "GrCh:US-ASHBURN-AD-2"
 }
 
 variable "Shape" {
@@ -312,7 +312,7 @@ variable "ssh_public_key" {
   default = ""
 }
 variable "ssh_authorized_keys" {
-  default = "/home/opc/credentials/id_rsa.pub"
+  default = "/home/opc/.ssh/id_rsa.pub"
 }
 
 # Dictionary Locals=

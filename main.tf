@@ -280,7 +280,7 @@ variable "Subnet-CIDR" {
   default = "10.0.1.0/24"
 }
 variable "ADs" {
-  default = "GrCh:US-SANJOSE-AD-1"
+  default = "GrCh:US-SANJOSE-1-AD-1"
 }
 
 variable "Shape" {

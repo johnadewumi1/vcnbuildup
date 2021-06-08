@@ -1,3 +1,10 @@
+resource "oci_core_vcn" "dataSvcn" {
+  dns_label      = "dataSvcn"
+  cidr_block     = var.VCN-CIDR
+  compartment_id = var.compartment
+  display_name   = "dataSvcn"
+}
+
 resource "oci_core_dhcp_options" "dataSDhcpOptions1" {
   compartment_id = var.compartment
   vcn_id         = oci_core_vcn.dataSvcn.id

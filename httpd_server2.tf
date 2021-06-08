@@ -1,4 +1,4 @@
-resource "null_resource" "webHTTPD" {
+resource "null_resource" "webHTTPD2" {
   depends_on = [oci_core_instance.dataSWebserver2]
   provisioner "remote-exec" {
     connection {

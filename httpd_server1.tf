@@ -5,7 +5,7 @@ resource "null_resource" "webHTTPD" {
       type        = "ssh"
       user        = "opc"
       host        = "data.oci_core_vnic.dataSWebserver1_vnic.public_ip_address"
-      private_key = file(var.ssh_authorized_keys)
+      private_key = file(var.ssh_private_key)
       script_path = "/home/opc/.oci/oci_api_key.pem"
       agent       = false
       timeout     = "10m"

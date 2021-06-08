@@ -14,6 +14,7 @@ variable "fingerprint" {
 variable "private_key_path" {
   default = "/home/opc/.oci/oci_api_key.pem"
 }
+
 variable "compartment" {
   default = "ocid1.compartment.oc1..aaaaaaaapqytcu462c27feapv4bvf2ijszoqm7qmqjn4mx3koz3o5tjt5ska"
 }
@@ -54,8 +55,8 @@ variable "linux_os_version" {
 variable "service_ports" {
   default = [80, 443, 22]
 }
-variable "ssh_public_key" {
-  default = ""
+variable "ssh_private_key" {
+  default = "/home/opc/.ssh/id_rsa"
 }
 variable "ssh_authorized_keys" {
   default = "/home/opc/.ssh/id_rsa.pub"
